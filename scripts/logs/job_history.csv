@@ -1,0 +1,6 @@
+job_id,script,date,description,status
+9185428,align_hg002.sh,2025-11-06 11:51:39,pending
+9234079,align_hg002.sh,2025-11-07 01:30:18,pending
+9238875,sam_to_bam.sh,2025-11-07 06:44:07,pending
+9240320,sam_to_bam.sh,2025-11-07 07:44:18,pending
+9240634,sort_index_bam.sh,2025-11-07 08:05:48,pending

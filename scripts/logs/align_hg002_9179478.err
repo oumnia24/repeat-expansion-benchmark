@@ -1,0 +1,8 @@
+[M::mm_idx_gen::49.486*1.36] collected minimizers
+[M::mm_idx_gen::52.115*1.80] sorted minimizers
+[M::main::52.117*1.80] loaded/built the index for 455 target sequence(s)
+[M::mm_mapopt_update::53.714*1.77] mid_occ = 495
+[M::mm_idx_stat] kmer size: 19; skip: 10; is_hpc: 1; #seq: 455
+[M::mm_idx_stat::54.608*1.76] distinct minimizers: 86695457 (44.00% are singletons); average occurrences: 4.493; average spacing: 8.240; total length: 3209286105
+ERROR: failed to open file 'SRR26402938.fastq': No such file or directory
+ERROR: failed to map the query file

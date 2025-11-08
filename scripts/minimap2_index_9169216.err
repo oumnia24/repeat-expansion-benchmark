@@ -1,0 +1,8 @@
+[M::mm_idx_gen::71.355*1.69] collected minimizers
+[M::mm_idx_gen::86.721*1.91] sorted minimizers
+[M::main::99.233*1.80] loaded/built the index for 455 target sequence(s)
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 455
+[M::mm_idx_stat::100.346*1.79] distinct minimizers: 100202295 (37.96% are singletons); average occurrences: 5.732; average spacing: 5.587; total length: 3209286105
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -d ../data/hg38.mmi ../data/hg38.fa
+[M::main] Real time: 100.711 sec; CPU: 179.780 sec; Peak RSS: 11.888 GB
