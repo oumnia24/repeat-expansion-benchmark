@@ -1,2 +1,32 @@
 catalogs/*.bed
 .git.backup/
+
+# Ignore entire data directory (contains large files)
+data/
+
+# Ignore log directories
+logs/
+scripts/logs/
+
+# Ignore SLURM output files anywhere
+*.out
+*.err
+
+# macOS metadata files
+._*
+.DS_Store
+
+# Git attributes
+.gitattributes
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.tmp
+*.temp
+
+#Catalog of repeat regions in HG002:
+catalogs/catalog_repeat_regions_HG002_GRCH38_Tier1.bed

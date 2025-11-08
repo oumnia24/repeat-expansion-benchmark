@@ -4,3 +4,14 @@ job_id,script,date,description,status
 9238875,sam_to_bam.sh,2025-11-07 06:44:07,pending
 9240320,sam_to_bam.sh,2025-11-07 07:44:18,pending
 9240634,sort_index_bam.sh,2025-11-07 08:05:48,pending
+,split_haplotypes.sh,2025-11-08 07:25:09,pending
+9308414,split_haplotypes.sh,2025-11-08 07:25:41,pending
+9309413,repeat_sizing/build_maternal_minimap2_index.sh,2025-11-08 08:51:30,pending
+9309416,repeat_sizing/build_paternal_minimap2_index.sh,2025-11-08 08:51:43,pending
+9309449,repeat_sizing/build_paternal_minimap2_index.sh,2025-11-08 08:57:06,pending
+9309451,repeat_sizing/build_maternal_minimap2_index.sh,2025-11-08 08:57:24,pending
+9309455,repeat_sizing/build_paternal_minimap2_index.sh,2025-11-08 08:57:41,pending
+9309475,repeat_sizing/build_maternal_minimap2_index.sh,2025-11-08 09:00:50,pending
+9309476,repeat_sizing/build_paternal_minimap2_index.sh,2025-11-08 09:00:59,pending
+9309502,repeat_sizing/align_flanks_to_maternal.sh,2025-11-08 09:04:41,pending
+9309503,repeat_sizing/align_flanks_to_paternal.sh,2025-11-08 09:04:46,pending
