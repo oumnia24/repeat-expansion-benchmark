@@ -124,7 +124,9 @@ scripts/repeat_sizing/
 ├── build_maternal_minimap2_index.sh      # Index maternal assembly
 ├── build_paternal_minimap2_index.sh      # Index paternal assembly
 ├── align_flanks_to_maternal.sh           # Align flanks to maternal
-└── align_flanks_to_paternal.sh           # Align flanks to paternal
+├── align_flanks_to_paternal.sh           # Align flanks to paternal
+├── analyze_flank_alignments.py           # Analyze MAPQ distribution
+└── filter_paired_flanks.py               # Filter for properly paired flanks
 ```
 
 ### Workflow
@@ -167,11 +169,46 @@ cd scripts
 ```
 
 Produces:
-- `data/flanks_maternal.sam` - Alignments to maternal chromosomes
-- `data/flanks_paternal.sam` - Alignments to paternal chromosomes
+- `data/flanks_maternal.sam` - Alignments to maternal chromosomes (~750MB)
+- `data/flanks_paternal.sam` - Alignments to paternal chromosomes (~750MB)
 
-#### Step 5: Calculate Repeat Sizes (In Development)
-Parse SAM files to match left/right flanks and calculate repeat sizes for each haplotype.
+#### Step 5: Filter High-Quality Alignments (MAPQ=60)
+```bash
+# Keep only uniquely mapped flanks (MAPQ=60)
+awk 'BEGIN {OFS="\t"} /^@/ || $5==60' data/flanks_maternal.sam > data/flanks_maternal_high_quality.sam
+awk 'BEGIN {OFS="\t"} /^@/ || $5==60' data/flanks_paternal.sam > data/flanks_paternal_high_quality.sam
+```
+
+Filters out ~16% of alignments with MAPQ=0 (multi-mapped/ambiguous).
+
+#### Step 6: Analyze Alignment Quality (Optional)
+```bash
+cd scripts
+python repeat_sizing/analyze_flank_alignments.py \
+    ../data/flanks_maternal.sam \
+    ../data/flanks_paternal.sam
+```
+
+Generates MAPQ distribution plots and statistics.
+
+#### Step 7: Filter for Properly Paired Flanks
+```bash
+cd scripts
+python repeat_sizing/filter_paired_flanks.py ../data/flanks_maternal_high_quality.sam
+python repeat_sizing/filter_paired_flanks.py ../data/flanks_paternal_high_quality.sam
+```
+
+Keeps only repeats where:
+- Both left (LF) and right (RF) flanks are present
+- Both flanks map to the same chromosome
+- Mapped chromosome matches expected chromosome from repeat ID
+
+Produces:
+- `data/flanks_maternal_filtered.sam` - Paired, high-quality maternal alignments
+- `data/flanks_paternal_filtered.sam` - Paired, high-quality paternal alignments
+
+#### Step 8: Calculate Repeat Sizes (In Development)
+Parse filtered SAM files to calculate repeat sizes for each haplotype.
 
 ### Resource Requirements
 
@@ -179,7 +216,9 @@ Parse SAM files to match left/right flanks and calculate repeat sizes for each h
 |--------|--------|------|-----------|---------|
 | split_haplotypes.sh | 400GB | 1 | bigmem | ~30 min |
 | build_*_minimap2_index.sh | 384GB | 64 | bigmem | ~1 min |
-| align_flanks_to_*.sh | 384GB | 64 | bigmem | ~TBD |
+| align_flanks_to_*.sh | 384GB | 64 | bigmem | ~26 sec |
+| analyze_flank_alignments.py | - | - | login node | ~1-2 min |
+| filter_paired_flanks.py | - | - | login node | <1 min |
 
 ### Input Data
 
@@ -192,7 +231,10 @@ Parse SAM files to match left/right flanks and calculate repeat sizes for each h
 - Flanking sequences: `data/hg002_repeat_region_flanks.fa`
 - Haplotype assemblies: `data/hg002v1.1_{maternal,paternal}.fasta.gz`
 - Minimap2 indexes: `data/hg002v1.1_{maternal,paternal}.mmi`
-- SAM alignments: `data/flanks_{maternal,paternal}.sam`
+- SAM alignments (all): `data/flanks_{maternal,paternal}.sam`
+- High-quality SAM (MAPQ=60): `data/flanks_{maternal,paternal}_high_quality.sam`
+- Filtered SAM (paired flanks): `data/flanks_{maternal,paternal}_filtered.sam`
+- MAPQ analysis plots: `data/flank_alignment_analysis_mapq_distribution.png`
 
 ## Notes
 

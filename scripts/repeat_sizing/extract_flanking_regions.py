@@ -19,7 +19,7 @@ def extract_flanking_sequences(bed_file, fasta_file, output_file, flank_size=250
             chrom = fields[0]
             start = int(fields[1])
             end = int(fields[2])
-            
+
             # Extract the repeat identifier from the ID field
             # Format: ID=chr1_16682_16774_TGGTGGGGG;MOTIFS=...
             id_field = fields[3].split(';')[0]  # Get "ID=chr1_16682_16774_TGGTGGGGG"
